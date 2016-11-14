@@ -16,10 +16,12 @@ hashmap_t* create_hashmap(hashmap_t* m){
 void put(char *str, hashmap_t* hashmap){
 	
 	unsigned long index = get_index(hash(str),10);
-	
+
+	hashmap->data[index].key = malloc(strlen(str));
+
 	printf("trying to get by index %d\n", (int)index);
 	hashmap->data[index].hash = hash(str);
-	hashmap->data[index].key = str;
+	strcpy(hashmap->data[index].key, str);
 	hashmap->data[index].next = NULL;
 	hashmap->data[index].data = 0;
 

@@ -44,7 +44,8 @@ int main(){
 		check_string(m);
 	}
   	for (int i = 0; i < 10; i++){
-		printf("data is %ld\n", m->data[i].hash);
+		printf("index is %d\nhash is %ld\n", i, m->data[i].hash);
+		printf("key is %s\n\n", m->data[i].key);
 	}
 	return 0;
 }
