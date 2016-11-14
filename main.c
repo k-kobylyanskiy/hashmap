@@ -3,8 +3,7 @@
 #include "hash.h"
 
 
-int main(){
-    
+void check_string(){
     unsigned int len_max = 128;
     unsigned int current_size = 0;
 
@@ -13,28 +12,35 @@ int main(){
 
     if(pStr != NULL){
     
-	int c = EOF;
-    unsigned int i = 0;
-        //accept user input until hit enter or end of file
-    while ((c = getchar()) != '\n' && c != EOF)
-    {
-        pStr[i++]=(char)c;
+		int c = EOF;
+   		unsigned int i = 0;
 
-        //if i reached maximize size then realloc size
-        if(i == current_size){
-            current_size = i+len_max;
-            pStr = realloc(pStr, current_size);
-        }
-    }
+    	while ((c = getchar()) != '\n' && c != EOF){
+        	pStr[i++]=(char)c;
 
-    pStr[i] = '\0';
+        	if(i == current_size){
+            	current_size = i+len_max;
+            	pStr = realloc(pStr, current_size);
+        	}
+    	}
 
-	printf("hash for string '%s' is %ld, index is %ld\n",pStr, hash(pStr),  get_index(hash(pStr), 100));
-    free(pStr);
-    pStr = NULL;
-
+    	pStr[i] = '\0';
+		
+		put(pStr);
+		printf("hash for string '%s' is %ld, index is %ld\n",pStr, hash(pStr),  get_index(hash(pStr), 100));
+    	free(pStr);
+    	pStr = NULL;
 
     }
+}
 
+
+int main(){
+	
+	create_hashmap();
+
+  	for (int i = 0; i < 5; i++){
+		check_string();
+	}
 	return 0;
 }
