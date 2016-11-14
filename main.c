@@ -3,33 +3,33 @@
 #include "hash.h"
 
 
-void check_string(){
+void check_string(hashmap_t* hashmap){
     unsigned int len_max = 128;
     unsigned int current_size = 0;
 
-    char *pStr = malloc(len_max);
+    char *p_str = malloc(len_max);
     current_size = len_max;
 
-    if(pStr != NULL){
+    if(p_str != NULL){
     
 		int c = EOF;
    		unsigned int i = 0;
 
     	while ((c = getchar()) != '\n' && c != EOF){
-        	pStr[i++]=(char)c;
+        	p_str[i++]=(char)c;
 
         	if(i == current_size){
             	current_size = i+len_max;
-            	pStr = realloc(pStr, current_size);
+            	p_str = realloc(p_str, current_size);
         	}
     	}
 
-    	pStr[i] = '\0';
+    	p_str[i] = '\0';
 		
-		put(pStr);
-		printf("hash for string '%s' is %ld, index is %ld\n",pStr, hash(pStr),  get_index(hash(pStr), 100));
-    	free(pStr);
-    	pStr = NULL;
+		put(p_str, hashmap);
+		printf("hash for string '%s' is %ld, index is %ld\n",p_str, hash(p_str),  get_index(hash(p_str), 10));
+    	free(p_str);
+    	p_str = NULL;
 
     }
 }
@@ -37,10 +37,14 @@ void check_string(){
 
 int main(){
 	
-	create_hashmap();
+	hashmap_t* m = create_hashmap(m);
+	printf("memory for hashmap was allocated, max_size is %d elements\n", m->max_size);
 
   	for (int i = 0; i < 5; i++){
-		check_string();
+		check_string(m);
+	}
+  	for (int i = 0; i < 10; i++){
+		printf("data is %ld\n", m->data[i].hash);
 	}
 	return 0;
 }

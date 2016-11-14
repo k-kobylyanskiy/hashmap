@@ -5,7 +5,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void create_hashmap();
+typedef struct bucket bucket_t;
+
+struct bucket {
+	unsigned long hash;
+	char* key;
+	int data;
+	bucket_t* next;
+};
+
+typedef struct hashmap hashmap_t;
+
+struct hashmap {
+	int max_size;
+	int current_size;
+	bucket_t* data;
+};
+
+hashmap_t* create_hashmap();
 void put();
 unsigned long hash();
 unsigned long get_index();

@@ -2,35 +2,35 @@
 
 #define LOAD_FACTOR 0.75
 
+#define INITIAL_SIZE 10
 int max_size = 10;
 
-typedef struct hashmap_t {
-	int max_size;
-	int current_size;
-} hashmap;
-
-typedef struct bucket_t {
-	char* key;
-	int data;
-	struct bucket_t* next;
-} bucket;
-
-void create_hashmap(){
-	struct hashmap_t* m = (hashmap*) malloc(sizeof(hashmap));
-
-	printf("memory for hashmap was allocated\n");
+hashmap_t* create_hashmap(hashmap_t* m){
+	m = (hashmap_t*) malloc(sizeof(hashmap_t));
+	m->max_size = max_size;
+	m->current_size = 0;
+	m->data = malloc(INITIAL_SIZE * sizeof(bucket_t));
+	return m;
 }
 
-void put(char *str){
-	struct bucket_t* b = (bucket*) malloc(sizeof(bucket));
-	printf("memory for bucket was allocated\n");
+void put(char *str, hashmap_t* hashmap){
+	
+	unsigned long index = get_index(hash(str),10);
+	
+	printf("trying to get by index %d\n", (int)index);
+	hashmap->data[index].hash = hash(str);
+	hashmap->data[index].key = str;
+	hashmap->data[index].next = NULL;
+	hashmap->data[index].data = 0;
+
+	printf("memory for key '%s' bucket was allocated\n", str);
 }
 
 unsigned long get_index(unsigned long h, unsigned long length){
 	return h % (length - 1);
 }
 
-unsigned long hash(char *str){
+unsigned long hash(char* str){
     unsigned long hash = 5381;
 	int c;
 
