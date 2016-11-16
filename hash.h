@@ -20,12 +20,12 @@ typedef struct hashmap hashmap_t;
 struct hashmap {
 	int max_size;
 	int current_size;
-	bucket_t* data;
+	bucket_t **data;
 };
 
 hashmap_t* create_hashmap();
 void put();
-unsigned long get();
+int* get();
 unsigned long hash();
 unsigned long get_index();
 
