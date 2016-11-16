@@ -13,7 +13,7 @@ hashmap_t* create_hashmap(hashmap_t* m){
 	return m;
 }
 
-void put(char *str, hashmap_t* hashmap){
+void put(char *str, hashmap_t* hashmap, int data){
 	
 	unsigned long index = get_index(hash(str),10);
 
@@ -23,7 +23,7 @@ void put(char *str, hashmap_t* hashmap){
 	hashmap->data[index].hash = hash(str);
 	strcpy(hashmap->data[index].key, str);
 	hashmap->data[index].next = NULL;
-	hashmap->data[index].data = 0;
+	hashmap->data[index].data = data;
 
 	printf("memory for key '%s' bucket was allocated\n", str);
 }

@@ -3,11 +3,11 @@
 #include "hash.h"
 
 
-void check_string(hashmap_t* hashmap){
+char* check_string(char* p_str){
     unsigned int len_max = 128;
     unsigned int current_size = 0;
 
-    char *p_str = malloc(len_max);
+    p_str = malloc(len_max);
     current_size = len_max;
 
     if(p_str != NULL){
@@ -26,12 +26,21 @@ void check_string(hashmap_t* hashmap){
 
     	p_str[i] = '\0';
 		
-		put(p_str, hashmap);
-		printf("hash for string '%s' is %ld, index is %ld\n",p_str, hash(p_str),  get_index(hash(p_str), 10));
-    	free(p_str);
-    	p_str = NULL;
-
+    	return p_str;
     }
+}
+
+void put_element(hashmap_t* hashmap){
+	printf("Enter the key:\n");
+	char* key = check_string(key);
+	int data;
+	printf("Enter the data:\n");
+	char* str = check_string(key);
+	data = strtoul(str, NULL, 10);
+	put(key, hashmap, data);
+
+	free(key);
+	free(str);
 }
 
 
@@ -41,7 +50,7 @@ int main(){
 	printf("memory for hashmap was allocated, max_size is %d elements\n", m->max_size);
 
   	for (int i = 0; i < 5; i++){
-		check_string(m);
+		put_element(m);
 	}
   	for (int i = 0; i < 10; i++){
 		printf("index is %d\nhash is %ld\n", i, m->data[i].hash);
