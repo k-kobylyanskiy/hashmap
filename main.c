@@ -47,5 +47,11 @@ int main(){
 		printf("index is %d\nhash is %ld\n", i, m->data[i].hash);
 		printf("key is %s\n\n", m->data[i].key);
 	}
+
+	printf("Enter a string to get information about bucket\n");
+	char s[5];
+	scanf("%s", s);
+	printf("hash is %ld", m->data[get(s, m)].hash);
+
 	return 0;
 }

@@ -25,6 +25,7 @@ struct hashmap {
 
 hashmap_t* create_hashmap();
 void put();
+unsigned long get();
 unsigned long hash();
 unsigned long get_index();
 

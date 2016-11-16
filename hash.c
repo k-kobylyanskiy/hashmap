@@ -28,6 +28,11 @@ void put(char *str, hashmap_t* hashmap){
 	printf("memory for key '%s' bucket was allocated\n", str);
 }
 
+unsigned long get(char* str, hashmap_t* hashmap){
+	unsigned long index = get_index(hash(str),10);
+	return index;
+}
+
 unsigned long get_index(unsigned long h, unsigned long length){
 	return h % (length - 1);
 }
